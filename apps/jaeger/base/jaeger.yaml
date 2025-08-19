@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jaeger-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jaeger
+  template:
+    metadata:
+      labels:
+        app: jaeger
+    spec:
+      containers:
+      - name: jaeger
+        image: jaegertracing/all-in-one:latest
+        env:
+        - name: COLLECTOR_OTLP_ENABLED
+          value: "true"
+        ports:
+        - containerPort: 4317
+          name: otlp
+        - containerPort: 16686
+          name: ui
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jaeger-service
+spec:
+  selector:
+    app: jaeger
+  ports:
+  - protocol: TCP
+    port: 4317
+    targetPort: 4317
+    name: otlp
+  - protocol: TCP
+    port: 443
+    targetPort: 16686
+    name: ui
+  # type: LoadBalancer
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jaeger-ingress
+  labels:
+    app: jaeger-ingress
+  annotations:
+    ingressClassName: "gce"
+    beta.cloud.google.com/backend-config: '{"default": "iap-backend-config"}'
+    networking.gke.io/managed-certificates: jaeger-managed-cert
+    kubernetes.io/ingress.allow-http: "false"
+spec:
+  rules:
+  - host: jaeger.dev.shush.tech
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: jaeger-service
+            port:
+              number: 443
+status:
+  loadBalancer:
+    ingress:
+      - ip: 34.36.171.90

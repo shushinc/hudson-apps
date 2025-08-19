@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pcrf
+spec:
+  template:
+    spec:
+      containers:
+        - name: pcrf
+          envFrom:
+            - configMapRef:
+                name: pcrf-config

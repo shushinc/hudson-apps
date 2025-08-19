@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diameter
+spec:
+  template:
+    spec:
+      containers:
+        - name: diameter
+          envFrom:
+            - configMapRef:
+                name: diameter-config
