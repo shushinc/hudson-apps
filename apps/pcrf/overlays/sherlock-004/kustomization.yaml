@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../base
+
+configMapGenerator:
+- literals:
+  - OTEL_SERVICE_NAME=sherlock-api
+  - OTEL_CLIENT_HOST=192.168.2.167
+  - OTEL_CLIENT_PORT=4317
+  - OTEL_INSECURE=True
+  - GET_MSISDN_PUBLIC_IP_URL=http://35.239.109.41/silent_auth
+  - GET_DEVICE_LOCATION_MSISDN=http://35.239.109.41/device_location
+  - GET_IN_CALL_STATE_URL=http://35.239.109.41/silent_auth
+  name: pcrf-config
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+patches:
+- path: configmap.yaml

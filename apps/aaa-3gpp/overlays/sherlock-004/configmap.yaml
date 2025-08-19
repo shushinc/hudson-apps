@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aaa-3gpp
+spec:
+  template:
+    spec:
+      containers:
+        - name: aaa-3gpp
+          envFrom:
+            - configMapRef:
+                name: aaa-3gpp-config

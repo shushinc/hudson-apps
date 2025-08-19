@@ -1,0 +1,29 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - "../../base"
+
+configMapGenerator:
+- literals:
+  - REDIS_HOST=redis-service.redis.svc.cluster.local
+  - REDIS_PORT=6379
+  - CLIENT_NODE_ORIGIN_HOST="ATSLab.Client.epc.mnc181.mcc311.3gppnetwork.org"
+  - CLIENT_NODE_REALM_NAME="epc.mnc181.mcc311.3gppnetwork.org"
+  - CLIENT_NODE_IP_ADDRESSES="127.0.0.1"
+  - CLIENT_NODE_TCP_PORT=3869
+  - CLIENT_NODE_IDLE_TIMEOUT=30
+  - PEER_URI="aaa://ATS.AAA.epc.mnc181.mcc311.3gppnetwork.org:3868"
+  - PEER_REALM_NAME="epc.mnc181.mcc311.3gppnetwork.org"
+  - PEER_IP_ADDRESSES="44.210.50.81"
+  - PEER_RECONNECT_WAIT=5
+  - CONSUMER_WAIT_TIMEOUT=15
+  - LOG_LEVEL="DEBUG"
+
+  name: diameter-config
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+patches:
+- path: configmap.yaml
