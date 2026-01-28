@@ -57,27 +57,5 @@ spec:
       name: http
   selector:
     app: sherlock
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: sherlock
-  labels:
-    app: sherlock
-  annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/backend-protocol: HTTP
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-spec:
-  rules:
-    - http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: sherlock-service
-                port:
-                  number: 8081
+
 
