@@ -32,6 +32,9 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8081
+          env:
+            - name: CONSENT_CHECK
+              value: OFF  
           resources:
             requests:
               cpu: "1000m"
