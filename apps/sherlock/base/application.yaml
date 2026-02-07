@@ -21,7 +21,7 @@ data:
   NUMBER_VERIFICATION_VERIFY_NUMBER_URL: "hss-service:50058"
 
   # Consent Management
-  CONSENT_CHECK: "ON"
+  CONSENT_CHECK: "OFF"
   CONSENT_GRPC_URL: "consent-internal:50052"
   CONSENT_MODE: "IMPLICIT"
 ---
