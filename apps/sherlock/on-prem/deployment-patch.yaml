@@ -1,19 +1,19 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: sherlock
-spec:
-  template:
-    spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - cts-den1-shapi2
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: sherlock
+#spec:
+#  template:
+#    spec:
+#      affinity:
+#        nodeAffinity:
+#          requiredDuringSchedulingIgnoredDuringExecution:
+#            nodeSelectorTerms:
+#              - matchExpressions:
+#                  - key: kubernetes.io/hostname
+#                    operator: In
+#                    values:
+#                      - cts-den1-shapi2
 ---
 apiVersion: v1
 kind: Service

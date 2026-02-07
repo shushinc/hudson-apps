@@ -3,28 +3,6 @@ kind: ServiceAccount
 metadata:
   name: hudson-sa
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: sherlock-config
-  namespace: hudson
-data:
-  OTEL_SERVICE_NAME: "sherlock-api"
-  OTEL_CLIENT_HOST: "localhost"
-  OTEL_CLIENT_PORT: "4317"
-  OTEL_INSECURE: "true"
-
-  JWT_SECRET: "df24a02b3efb2740ca243714a94a211acb9ee70022c41cc7"
-  JWT_ALGORITHM: "HS256"
-
-  SILENT_AUTHENTICATION_RETRIEVE_IP_ADDRESS_URL: "pcrf-service:50056"
-  NUMBER_VERIFICATION_VERIFY_NUMBER_URL: "hss-service:50058"
-
-  # Consent Management
-  CONSENT_CHECK: "OFF"
-  CONSENT_GRPC_URL: "consent-internal:50052"
-  CONSENT_MODE: "IMPLICIT"
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
