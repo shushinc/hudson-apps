@@ -30,6 +30,9 @@ spec:
         - name: sherlock
           image: us-central1-docker.pkg.dev/sherlock-004/hudson/sherlockapi:latest
           imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: sherlock-config
           ports:
             - containerPort: 8081
           resources:
